@@ -10,11 +10,10 @@ const loggers = require('./logging.js');
 const logger = loggers.logger;
 const app = express();
 
-
 app.get('/', (req, res) => {
   const currentUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
   res.send('Your Bot Is Ready! Subscribe My Youtube: <a href="https://youtube.com/@H2N_OFFICIAL?si=UOLwjqUv-C1mWkn4">H2N OFFICIAL</a><br>Link Web For Uptime: <a href="' + currentUrl + '">' + currentUrl + '</a>');
-}); 
+});
 
 app.listen(3000);
 
@@ -92,17 +91,17 @@ function createBot() {
 
          if (config.utils['anti-afk']['hit'].enabled) {
             let delay = config.utils['anti-afk']['hit']['delay'];
-            let attackMobs = config.utils['anti-afk']['hit']['attack-mobs']
+            let attackMobs = config.utils['anti-afk']['hit']['attack-mobs'];
 
             setInterval(() => {
-               if(attackMobs) {
-                     let entity = bot.nearestEntity(e => e.type !== 'object' && e.type !== 'player'
-                         && e.type !== 'global' && e.type !== 'orb' && e.type !== 'other');
+               if (attackMobs) {
+                  let entity = bot.nearestEntity(e => e.type !== 'object' && e.type !== 'player'
+                      && e.type !== 'global' && e.type !== 'orb' && e.type !== 'other');
 
-                     if(entity) {
-                        bot.attack(entity);
-                        return
-                     }
+                  if (entity) {
+                     bot.attack(entity);
+                     return;
+                  }
                }
 
                bot.swingArm("right", true);
@@ -116,7 +115,7 @@ function createBot() {
          }
 
          if (config.utils['anti-afk']['circle-walk'].enabled) {
-            let radius = config.utils['anti-afk']['circle-walk']['radius']
+            let radius = config.utils['anti-afk']['circle-walk']['radius'];
             circleWalk(bot, radius);
          }
       }
@@ -129,7 +128,7 @@ function createBot() {
    });
 
    bot.on('goal_reached', () => {
-      if(config.position.enabled) {
+      if (config.position.enabled) {
          logger.info(
              `Bot arrived to target location. ${bot.entity.position}`
          );
@@ -151,15 +150,24 @@ function createBot() {
    }
 
    bot.on('kicked', (reason) => {
-      let reasonText = JSON.parse(reason).text;
-      if(reasonText === '') {
-         reasonText = JSON.parse(reason).extra[0].text
-      }
-      reasonText = reasonText.replace(/§./g, '');
+      let reasonText;
 
-      logger.warn(`Bot was kicked from the server. Reason: ${reasonText}`)
-   }
-   );
+      try {
+         const parsedReason = JSON.parse(reason);
+         reasonText = parsedReason.text || (parsedReason.extra && parsedReason.extra[0].text) || '';
+      } catch (e) {
+         reasonText = 'Unknown reason';
+      }
+
+      // Ensure reasonText is a string before calling replace
+      if (typeof reasonText === 'string') {
+         reasonText = reasonText.replace(/§./g, '');
+      } else {
+         reasonText = 'Unknown reason';
+      }
+
+      logger.warn(`Bot was kicked from the server. Reason: ${reasonText}`);
+   });
 
    bot.on('error', (err) =>
       logger.error(`${err.message}`)
@@ -167,27 +175,24 @@ function createBot() {
 }
 
 function circleWalk(bot, radius) {
-   // Make bot walk in square with center in bot's  wthout stopping
-    return new Promise(() => {
-        const pos = bot.entity.position;
-        const x = pos.x;
-        const y = pos.y;
-        const z = pos.z;
+   const pos = bot.entity.position;
+   const x = pos.x;
+   const y = pos.y;
+   const z = pos.z;
 
-        const points = [
-            [x + radius, y, z],
-            [x, y, z + radius],
-            [x - radius, y, z],
-            [x, y, z - radius],
-        ];
+   const points = [
+      [x + radius, y, z],
+      [x, y, z + radius],
+      [x - radius, y, z],
+      [x, y, z - radius],
+   ];
 
-        let i = 0;
-        setInterval(() => {
-             if(i === points.length) i = 0;
-             bot.pathfinder.setGoal(new GoalXZ(points[i][0], points[i][2]));
-             i++;
-        }, 1000);
-    });
+   let i = 0;
+   setInterval(() => {
+      if (i === points.length) i = 0;
+      bot.pathfinder.setGoal(new GoalXZ(points[i][0], points[i][2]));
+      i++;
+   }, 1000);
 }
 
 createBot();
