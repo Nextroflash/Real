@@ -1,8 +1,8 @@
 {
   "bot-account": {
-    "username": "LiveInPeace",
+    "username": "LiveInWar",
     "password": "",
-    "type": "mojang"
+    "type": ""
   },
   "server": {
     "ip": "the8ghzlethalhvh.aternos.me",
@@ -27,11 +27,10 @@
     "chat-messages": {
       "enabled": true,
       "repeat": true,
-      "repeat-delay": 60,
+      "repeat-delay": 10,
       "messages": [
-        "I'm a regular player",
-        "My owner is Forrest",
-        "I want to be alone"
+        "/register PornStarRecoded",
+        "/login PornStarRecoded",
       ]
     },
     "chat-log": true,
