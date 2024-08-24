@@ -1,8 +1,8 @@
 {
   "bot-account": {
     "username": "LiveInWar",
-    "password": "", 
-    "type": ""
+    "password": "",  // Leave empty if not using a password, or provide the correct password
+    "type": "" // Set to "mojang" for Mojang accounts or "offline" for offline mode
   },
 
   "server": {
