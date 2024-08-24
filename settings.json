@@ -4,35 +4,43 @@
     "password": "",
     "type": ""
   },
+
   "server": {
     "ip": "the8ghzlethalhvh.aternos.me",
     "port": 44725,
     "version": "1.8.8"
   },
+
   "position": {
     "enabled": false,
     "x": 0,
     "y": 0,
     "z": 0
   },
+
   "utils": {
     "auto-auth": {
       "enabled": false,
       "password": ""
     },
+
     "anti-afk": {
       "enabled": false,
       "sneak": false
     },
+
     "chat-messages": {
       "enabled": true,
       "repeat": true,
       "repeat-delay": 10,
+
       "messages": [
-        "/register PornStarRecoded",
+        "/register PornStarRecodAed",
         "/login PornStarRecoded",
+        "I want to be alone"
       ]
     },
+
     "chat-log": true,
     "auto-reconnect": true,
     "auto-reconnect-delay": 5000
