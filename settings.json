@@ -1,8 +1,8 @@
 {
   "bot-account": {
     "username": "LiveInWar",
-    "password": "",  // Leave empty if not using a password, or provide the correct password
-    "type": "" // Set to "mojang" for Mojang accounts or "offline" for offline mode
+    "password": "",
+    "type": ""
   },
 
   "server": {
@@ -20,8 +20,8 @@
 
   "utils": {
     "auto-auth": {
-      "enabled": false,  // Set to true if you need auto-authentication
-      "password": ""     // Provide the correct password if auto-auth is enabled
+      "enabled": false,
+      "password": ""
     },
 
     "anti-afk": {
